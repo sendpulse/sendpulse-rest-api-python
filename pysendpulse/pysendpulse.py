@@ -638,3 +638,96 @@ class PySendPulse:
             return self.__handle_error("Seems we have empty some credentials 'from': '{}' or 'to': '{}' fields".format(email.get('from'), email.get('to')))
         email['html'] = base64.b64encode(email.get('html'))
         return self.__handle_result(self.__send_request('smtp/emails', 'POST', {'email': json.dumps(email)}))
+
+    # ------------------------------------------------------------------ #
+    #                              PUSH                                  #
+    # ------------------------------------------------------------------ #
+
+    def push_get_tasks(self, limit=0, offset=0):
+        """ PUSH: get list of tasks
+
+        @param limit: unsigned int max limit of records. The max value is 100
+        @param offset: unsigned int how many records pass before selection
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_get_tasks")
+        return self.__handle_result(self.__send_request('push/tasks', 'GET', {'limit': limit or 0, 'offset': offset or 0}))
+
+    def push_get_websites(self, limit=0, offset=0):
+        """ PUSH: get list of websites
+
+        @param limit: unsigned int max limit of records. The max value is 100
+        @param offset: unsigned int how many records pass before selection
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_get_websites")
+        return self.__handle_result(self.__send_request('push/websites', 'GET', {'limit': limit or 0, 'offset': offset or 0}))
+
+    def push_count_websites(self):
+        """ PUSH: get amount of websites
+
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_count_websites")
+        return self.__handle_result(self.__send_request('push/websites/total', 'GET', {}))
+
+    def push_get_variables(self, id):
+        """ PUSH: get list of all variables for website
+
+        @param id: unsigned int website id
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_get_variables for {}".format(id))
+        return self.__handle_result(self.__send_request('push/websites/{}/variables'.format(id), 'GET', {}))
+
+    def push_get_subscriptions(self, id, limit=0, offset=0):
+        """ PUSH: get list of all subscriptions for website
+
+        @param limit: unsigned int max limit of records. The max value is 100
+        @param offset: unsigned int how many records pass before selection
+        @param id: unsigned int website id
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_get_subscriptions for {}".format(id))
+        return self.__handle_result(self.__send_request('push/websites/{}/subscriptions'.format(id), 'GET', {'limit': limit or 0, 'offset': offset or 0}))
+
+    def push_count_subscriptions(self, id):
+        """ PUSH: get amount of subscriptions for website
+
+        @param id: unsigned int website id
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_count_subscriptions for {}".format(id))
+        return self.__handle_result(self.__send_request('push/websites/{}/subscriptions/total'.format(id), 'GET', {}))
+
+    def push_set_subscription_state(self, subscription_id, state_value):
+        """ PUSH: get amount of subscriptions for website
+
+        @param subscription_id: unsigned int subscription id
+        @param state_value: unsigned int state value. Can be 0 or 1
+        @return: dictionary with response message
+        """
+        logging.info("Function call: push_set_subscription_state for {} to state {}".format(subscription_id, state_value))
+        return self.__handle_result(self.__send_request('/push/subscriptions/state', 'POST', {'id': subscription_id, 'state': state_value}))
+
+    def push_create(self, title, website_id, body, ttl, additional_params={}):
+        """ PUSH: create new push
+
+        @param title: string push title
+        @param website_id: unsigned int website id
+        @param body: string push body
+        @param ttl: unsigned int ttl for push messages
+        @param additional_params: dictionary additional params for push task
+        @return: dictionary with response message
+        """
+        data_to_send = {
+            'title': title,
+            'website_id': website_id,
+            'body': body,
+            'ttl': ttl
+        }
+        if additional_params:
+            data_to_send.update(additional_params)
+
+        logging.info("Function call: push_create")
+        return self.__handle_result(self.__send_request('/push/tasks', 'POST', data_to_send))

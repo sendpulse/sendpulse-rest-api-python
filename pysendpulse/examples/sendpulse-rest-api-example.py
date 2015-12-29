@@ -15,6 +15,30 @@ if __name__ == "__main__":
     TOKEN_STORAGE = 'memcached'
     SPApiProxy = PySendPulse(REST_API_ID, REST_API_SECRET, TOKEN_STORAGE)
 
+    # Get list of tasks
+    SPApiProxy.push_get_tasks()
+
+    # Get list of websites
+    SPApiProxy.push_get_websites()
+
+    # Get amount of websites
+    SPApiProxy.push_count_websites()
+
+    # Get list of variables for website
+    SPApiProxy.push_get_variables(WEBSITE_ID)
+
+    # Get list of subscriptions for website
+    SPApiProxy.push_get_subscriptions(WEBSITE_ID)
+
+    # Get amount of subscriptions for website
+    SPApiProxy.push_count_subscriptions(WEBSITE_ID)
+
+    # Activate/Deactivate subscriber, state=1 - activate, state=2 - deactivate
+    SPApiProxy.push_set_subscription_state(SUBSCRIBER_ID, STATE)
+
+    # Create new push task
+    SPApiProxy.push_create('Hello!', WEBSITE_ID, 'This is my first push message', '10', {'filter_lang':'en', 'filter': '{"variable_name":"some","operator":"or","conditions":[{"condition":"likewith","value":"a"},{"condition":"notequal","value":"b"}]}'})
+
     # Get balance in Japanese Yen
     SPApiProxy.get_balance('JPY')
 
