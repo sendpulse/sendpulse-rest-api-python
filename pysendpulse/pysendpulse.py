@@ -58,7 +58,7 @@ class PySendPulse:
         self.__secret = secret
         self.__storage_type = storage_type.upper()
         m = md5()
-        m.update("{}::{}".format(user_id, secret))
+        m.update("{}::{}".format(user_id, secret).encode('utf-8'))
         self.__token_hash_name = m.hexdigest()
         if self.__storage_type not in self.ALLOWED_STORAGE_TYPES:
             logging.warn("Wrong storage type '{}'. Allowed storage types are: {}".format(storage_type, self.ALLOWED_STORAGE_TYPES))
