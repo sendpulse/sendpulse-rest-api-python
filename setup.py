@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from os.path import join, dirname
 from sys import version_info
 from pysendpulse import (
     __author__,
@@ -9,7 +10,7 @@ from pysendpulse import (
 install_requires = ['python3-memcached', ]
 
 if version_info.major == 2:
-    install_requires = ['python-memcached',]
+    install_requires = ['python-memcached', ]
 
 setup(
     name='pysendpulse',
@@ -18,7 +19,7 @@ setup(
     description='A simple SendPulse REST client library and example for Python',
     author=__author__,
     author_email=__author_email__,
-    long_description=open('README.md').read(),
+    long_description=open(join(dirname(__file__), 'README.md')).read(),
     url='https://github.com/sendpulse/sendpulse-rest-api-python',
     install_requires=install_requires
 )
