@@ -19,7 +19,6 @@ setup(
     description='A simple SendPulse REST client library and example for Python',
     author=__author__,
     author_email=__author_email__,
-    long_description=open(join(dirname(__file__), 'README.md')).read(),
     url='https://github.com/sendpulse/sendpulse-rest-api-python',
     install_requires=install_requires
 )
