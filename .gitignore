@@ -1,0 +1,31 @@
+*~
+env/
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# sqlite3
+*.sqlite3
+
+# sockets and pid
+*.sock
+*.pid
+/*.gitkeep
+*.save
+*.retry
+
+dist/
+*.egg-info
