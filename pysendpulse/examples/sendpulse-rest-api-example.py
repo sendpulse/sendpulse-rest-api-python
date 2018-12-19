@@ -73,6 +73,10 @@ if __name__ == "__main__":
     emails_for_delete = ['test4@test4.com']
     SPApiProxy.delete_emails_from_addressbook(ADDRESSBOOK_ID, emails_for_delete)
 
+    #Get campaigns statistic for list of emails
+    emails_list = ['test@test.com']
+    SPApiProxy.get_emails_stat_by_campaigns(emails_list)
+
     # Add sender "FROM" email
     SPApiProxy.add_sender('jane.roe@domain.com', 'Jane Roe')
 
@@ -117,7 +121,7 @@ if __name__ == "__main__":
         '11111111111',
         '22222222222'
     ]
-    SPApiProxy.sms_add_phones(ADDRESSBOOK_ID, phones_for_add);
+    SPApiProxy.sms_add_phones(ADDRESSBOOK_ID, phones_for_add)
 
     # Add phones to address book
     phones_for_add = {
@@ -139,7 +143,7 @@ if __name__ == "__main__":
                  ]
         }
 
-    SPApiProxy.sms_add_phones_with_variables(ADDRESSBOOK_ID, phones_for_add);
+    SPApiProxy.sms_add_phones_with_variables(ADDRESSBOOK_ID, phones_for_add)
 
     # Update phones variables from the address book
     phones_for_update = [
@@ -150,7 +154,7 @@ if __name__ == "__main__":
             "name":"name","type":"string", "value":"Michael"
         }
     ]
-    SPApiProxy.sms_update_phones_variables(ADDRESSBOOK_ID, phones_for_update, variables);
+    SPApiProxy.sms_update_phones_variables(ADDRESSBOOK_ID, phones_for_update, variables)
 
     # Get information about phone from the address book
     SPApiProxy.sms_get_phone_info(ADDRESSBOOK_ID, '1111111111')
@@ -160,7 +164,7 @@ if __name__ == "__main__":
         '11111111111',
         '22222222222'
     ]
-    SPApiProxy.sms_delete_phones(ADDRESSBOOK_ID, phones_for_remove);
+    SPApiProxy.sms_delete_phones(ADDRESSBOOK_ID, phones_for_remove)
 
     # Get phones from the blacklist
     SPApiProxy.sms_get_blacklist()
@@ -170,24 +174,24 @@ if __name__ == "__main__":
         '111222227',
         '222333337'
     ]
-    SPApiProxy.sms_add_phones_to_blacklist(phones_for_add_to_blacklist, 'test');
+    SPApiProxy.sms_add_phones_to_blacklist(phones_for_add_to_blacklist, 'test')
 
     # Remove phones from blacklist
     phones_for_remove = [
         '11111111111',
         '22222222222'
     ]
-    SPApiProxy.sms_delete_phones_from_blacklist(phones_for_remove);
+    SPApiProxy.sms_delete_phones_from_blacklist(phones_for_remove)
 
     # Get info by phones from the blacklist
     phones = [
         '11111111111',
         '22222222222'
     ]
-    SPApiProxy.sms_get_phones_info_from_blacklist(phones);
+    SPApiProxy.sms_get_phones_info_from_blacklist(phones)
 
     # Create new sms campaign
-    SPApiProxy.sms_add_campaign(SENDER_NAME, ADDRESSBOOK_ID, 'test');
+    SPApiProxy.sms_add_campaign(SENDER_NAME, ADDRESSBOOK_ID, 'test')
 
     # Send sms by some phones
     phones_for_send = [
@@ -196,19 +200,19 @@ if __name__ == "__main__":
     SPApiProxy.sms_send(SENDER_NAME, phones_for_send, 'test')
 
     # Get list of sms campaigns
-    date_from = '2018-04-10 23:00:00';
-    date_to = '2018-05-10 23:00:00';
-    SPApiProxy.sms_get_list_campaigns(date_from, date_to);
+    date_from = '2018-04-10 23:00:00'
+    date_to = '2018-05-10 23:00:00'
+    SPApiProxy.sms_get_list_campaigns(date_from, date_to)
 
     # Get information about sms campaign
-    SPApiProxy.sms_get_campaign_info(CAMPAIGN_ID);
+    SPApiProxy.sms_get_campaign_info(CAMPAIGN_ID)
 
     # Cancel sms campaign
-    SPApiProxy.sms_cancel_campaign(CAMPAIGN_ID);
+    SPApiProxy.sms_cancel_campaign(CAMPAIGN_ID)
 
     # Get cost sms campaign
-    SPApiProxy.sms_get_campaign_cost('sender', 'test', ADDRESSBOOK_ID);
+    SPApiProxy.sms_get_campaign_cost('sender', 'test', ADDRESSBOOK_ID)
     #SPApiProxy.sms_get_campaign_cost('sender', 'test', None, ['111111111'])
 
     # Remove sms campaign
-    SPApiProxy.sms_delete_campaign(CAMPAIGN_ID);
+    SPApiProxy.sms_delete_campaign(CAMPAIGN_ID)
