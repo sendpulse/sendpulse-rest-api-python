@@ -1,7 +1,7 @@
 # RSS to Newsletter
 # This script checks your website RSS feed everyday and sends today's post (if any) to your mailing list.
 # If you run it on a server, you might need to use "screen" or "tmux" to keep the script running after closing your Terminal.
-# Change the values of the following variables: feed, REST_API_ID, REST_API_SECRET, from_email, from_name
+# Change the values of the following variables: feed, REST_API_ID, REST_API_SECRET, from_email, from_name, addressbook_id
 
 from pysendpulse.pysendpulse import PySendPulse
 import feedparser
@@ -30,7 +30,7 @@ def job():
     feed_description = feed_description[description_start:description_end]
 
 
-    # Find today's time
+    # Find today's date
 
     now = datetime.datetime.now()
     today = now.strftime("%a, %d %b %Y")     # Format to: "Thu, 03 Jan 2019"
