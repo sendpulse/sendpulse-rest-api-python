@@ -114,6 +114,25 @@ if __name__ == "__main__":
     }
     SPApiProxy.smtp_send_mail(email)
 
+    # Send mail with template using SMTP
+    email = {
+        'subject': 'This is the test task from REST API',
+        'from': {'name': 'John Doe', 'email': 'john.doe@domain.com'},
+        'to': [
+            {'name': 'Jane Roe', 'email': 'jane.roe@domain.com'}
+        ],
+        "template": {
+            'id': '73606',  # ID of the template uploaded in the service. Use this
+                            # (https://sendpulse.com/integrations/api/bulk-email#template-list)
+                            # method to get the template ID (use either real_id or id parameter from the reply)
+            'variables': {
+                'foo': 'value',
+                'bar': 'value'
+            }
+        },
+    }
+    SPApiProxy.smtp_send_mail_with_template(email)
+
     # ****************  SMS ***************
 
     # Add phones to address book
