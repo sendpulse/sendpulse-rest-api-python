@@ -73,7 +73,13 @@ if __name__ == "__main__":
     emails_for_delete = ['test4@test4.com']
     SPApiProxy.delete_emails_from_addressbook(ADDRESSBOOK_ID, emails_for_delete)
 
-    #Get campaigns statistic for list of emails
+    # Get a list of variables available on a mailing list
+    SPApiProxy.get_addressbook_variables(ADDRESSBOOK_ID)
+
+    # Changing a variable for an email contact
+    SPApiProxy.set_variables_for_email(ADDRESSBOOK_ID, 'example@email.com', [{'name': 'foo', 'value': 'bar'}])
+
+    # Get campaigns statistic for list of emails
     emails_list = ['test@test.com']
     SPApiProxy.get_emails_stat_by_campaigns(emails_list)
 
