@@ -113,13 +113,14 @@ class PySendPulse:
             return True
         return False
 
-    def __send_request(self, path, method="GET", params=None, use_token=True):
+    def __send_request(self, path, method="GET", params=None, use_token=True, use_json_content_type=False):
         """ Form and send request to API service
 
         @param path: sring what API url need to call
         @param method: HTTP method GET|POST|PUT|DELETE
         @param params: dict argument need to send to server
         @param use_token: boolean need to use token or not
+		@param use_json_content_type: boolean need to convert params data to json or not
         @return: HTTP requests library object http://www.python-requests.org/
         """
         url = "{}/{}".format(self.__api_url, path)
@@ -131,6 +132,10 @@ class PySendPulse:
             headers = {'Authorization': 'Bearer {}'.format(self.__token)}
         else:
             headers = {}
+        if use_json_content_type and params:
+            headers['Content-Type'] = 'application/json'
+            params = json.dumps(params)
+
         if method == "POST":
             response = requests.post(url, headers=headers, data=params)
         elif method == "PUT":
@@ -269,6 +274,15 @@ class PySendPulse:
         logging.info("Function call: get_addressbook_info: '{}'".format(id, ))
         return self.__handle_error("Empty addressbook id") if not id else self.__handle_result(self.__send_request('addressbooks/{}'.format(id)))
 
+    def get_addressbook_variables(self, id):
+        """ Get a list of variables available on a mailing list
+
+        @param id: unsigned int addressbook ID
+        @return: list with variables of addressbook
+        """
+        logging.info("Function call: get_addressbook_variables_list: '{}'".format(id, ))
+        return self.__handle_error("Empty addressbook id") if not id else self.__handle_result(self.__send_request('addressbooks/{}/variables'.format(id)))
+
     # ------------------------------------------------------------------ #
     #                        EMAIL  ADDRESSES                            #
     # ------------------------------------------------------------------ #
@@ -337,6 +351,17 @@ class PySendPulse:
             logging.debug("Emails: {}".format(emails))
             return self.__handle_error("Emails list can't be converted by JSON library")
         return self.__handle_result(self.__send_request('emails/campaigns', 'POST', {'emails': emails}))
+
+    def set_variables_for_email(self, id, email, variables):
+        """ Set variables for email
+
+        @param id: unsigned int addressbook ID
+        @param email: string 
+        @param variables: dictionary
+        @return: dictionary with response message
+        """
+        logging.info("Function call: set_variables_for_email: '{}' with email: '{}' new variables: '{}'".format(id, email, variables))
+        return self.__handle_error("Empty addressbook id") if not id else self.__handle_result(self.__send_request('addressbooks/{}/emails/variable'.format(id), 'POST', {'email': email, 'variables': variables}, True, True))
 
     # ------------------------------------------------------------------ #
     #                        EMAIL  CAMPAIGNS                            #
