@@ -120,7 +120,7 @@ class PySendPulse:
         @param method: HTTP method GET|POST|PUT|DELETE
         @param params: dict argument need to send to server
         @param use_token: boolean need to use token or not
-		@param use_json_content_type: boolean need to convert params data to json or not
+        @param use_json_content_type: boolean need to convert params data to json or not
         @return: HTTP requests library object http://www.python-requests.org/
         """
         url = "{}/{}".format(self.__api_url, path)
