@@ -37,7 +37,8 @@ if __name__ == "__main__":
     SPApiProxy.push_set_subscription_state(SUBSCRIBER_ID, STATE)
 
     # Create new push task
-    SPApiProxy.push_create('Hello!', WEBSITE_ID, 'This is my first push message', '10', {'filter_lang':'en', 'filter': '{"variable_name":"some","operator":"or","conditions":[{"condition":"likewith","value":"a"},{"condition":"notequal","value":"b"}]}'})
+    SPApiProxy.push_create('Hello!', WEBSITE_ID, 'This is my first push message', '10',
+                           {'filter_lang': 'en', 'filter': '{"variable_name":"some","operator":"or","conditions":[{"condition":"likewith","value":"a"},{"condition":"notequal","value":"b"}]}'})
 
     # Get balance in Japanese Yen
     SPApiProxy.get_balance('JPY')
@@ -73,7 +74,7 @@ if __name__ == "__main__":
     emails_for_delete = ['test4@test4.com']
     SPApiProxy.delete_emails_from_addressbook(ADDRESSBOOK_ID, emails_for_delete)
 
-    #Get campaigns statistic for list of emails
+    # Get campaigns statistic for list of emails
     emails_list = ['test@test.com']
     SPApiProxy.get_emails_stat_by_campaigns(emails_list)
 
@@ -126,22 +127,22 @@ if __name__ == "__main__":
     # Add phones to address book
     phones_for_add = {
         "11111111111":
-             [
+            [
                 [
-                      {"name" : "test1", "type" : "date", "value" : "2018-10-10 23:00:00"},
-                      {"name" : "test2", "type" : "string", "value" : "asdasd"},
-                      {"name" : "test3", "type" : "number", "value" : "123"}
+                    {"name": "test1", "type": "date", "value": "2018-10-10 23:00:00"},
+                    {"name": "test2", "type": "string", "value": "asdasd"},
+                    {"name": "test3", "type": "number", "value": "123"}
                 ]
-             ],
+            ],
         "22222222222":
-                 [
-                    [
-                          {"name" : "test1", "type" : "date", "value" : "2018-10-10 23:00:00"},
-                          {"name" : "test2", "type" : "string", "value" : "czxczx"},
-                          {"name" : "test3", "type" : "number", "value" : "456"}
-                    ]
-                 ]
-        }
+            [
+                [
+                    {"name": "test1", "type": "date", "value": "2018-10-10 23:00:00"},
+                    {"name": "test2", "type": "string", "value": "czxczx"},
+                    {"name": "test3", "type": "number", "value": "456"}
+                ]
+            ]
+    }
 
     SPApiProxy.sms_add_phones_with_variables(ADDRESSBOOK_ID, phones_for_add)
 
@@ -151,7 +152,7 @@ if __name__ == "__main__":
     ]
     variables = [
         {
-            "name":"name","type":"string", "value":"Michael"
+            "name": "name", "type": "string", "value": "Michael"
         }
     ]
     SPApiProxy.sms_update_phones_variables(ADDRESSBOOK_ID, phones_for_update, variables)
@@ -212,7 +213,7 @@ if __name__ == "__main__":
 
     # Get cost sms campaign
     SPApiProxy.sms_get_campaign_cost('sender', 'test', ADDRESSBOOK_ID)
-    #SPApiProxy.sms_get_campaign_cost('sender', 'test', None, ['111111111'])
+    # SPApiProxy.sms_get_campaign_cost('sender', 'test', None, ['111111111'])
 
     # Remove sms campaign
     SPApiProxy.sms_delete_campaign(CAMPAIGN_ID)
