@@ -1,3 +1,5 @@
+![Upload Python Package](https://github.com/sendpulse/sendpulse-rest-api-python/workflows/Upload%20Python%20Package/badge.svg?event=release)
+
 # sendpulse-rest-api
 
 A simple SendPulse REST client library and example for Python.
