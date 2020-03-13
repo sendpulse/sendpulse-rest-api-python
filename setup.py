@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-from os.path import join, dirname
 from sys import version_info
 from pysendpulse import (
     __author__,
@@ -10,7 +9,7 @@ from pysendpulse import (
 install_requires = ['python3-memcached', ]
 
 if version_info.major == 2:
-    install_requires = ['python-memcached', ]
+    install_requires = ['python-memcached', 'requests', 'simplejson']
 
 setup(
     name='pysendpulse',
