@@ -677,8 +677,22 @@ class PySendPulse:
             return self.__handle_error('Seems we have empty subject')
         elif not email.get('from') or not email.get('to'):
             return self.__handle_error("Seems we have empty some credentials 'from': '{}' or 'to': '{}' fields".format(email.get('from'), email.get('to')))
-        email['html'] = base64.b64encode(email.get('html'))
+        email['html'] = base64.b64encode(email.get('html').encode('utf-8')).decode('utf-8')
         return self.__handle_result(self.__send_request('smtp/emails', 'POST', {'email': json.dumps(email)}))
+
+    def smtp_send_mail_with_template(self, email):
+        """ SMTP: send email with custom template
+
+        @param email: string valid email address. We will send an email message to the specified email address with a verification link.
+        @return: dictionary with response message
+        """
+        logging.info("Function call: smtp_send_mail_template")
+        if not email.get('template'):
+            return self.__handle_error('Seems we have empty template')
+        elif not email.get('template').get('id'):
+            return self.__handle_error('Seems we have empty template id')
+        email['html'] = email['text'] = None
+        return self.smtp_send_mail(email)
 
     # ------------------------------------------------------------------ #
     #                              PUSH                                  #
