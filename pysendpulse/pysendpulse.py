@@ -846,7 +846,7 @@ class PySendPulse:
         @return: dictionary with response message
         """
         if not addressbook_id or not phone:
-           return self.__handle_error("Empty addressbook id or phone")
+            return self.__handle_error("Empty addressbook id or phone")
 
         logging.info("Function call: sms_get_phone_info")
         return self.__handle_result(self.__send_request('sms/numbers/info/' + str(addressbook_id) + '/' + str(phone), 'GET'))
@@ -952,7 +952,7 @@ class PySendPulse:
         logging.info("Function call: sms_add_phones_to_blacklist")
         return self.__handle_result(self.__send_request('sms/black_list', 'DELETE', data_to_send))
 
-    def sms_add_campaign(self, sender_name, addressbook_id, body, date = None, transliterate = False):
+    def sms_add_campaign(self, sender_name, addressbook_id, body, date=None, transliterate=False):
         """ Create new sms campaign
 
         @param sender_name: string senders name
@@ -965,11 +965,11 @@ class PySendPulse:
 
         logging.info("Function call: sms_create_campaign")
         if not sender_name:
-           return self.__handle_error('Seems you not pass sender name')
+            return self.__handle_error('Seems you not pass sender name')
         if not addressbook_id:
-           return self.__handle_error('Seems you not pass addressbook ID')
+            return self.__handle_error('Seems you not pass addressbook ID')
         if not body:
-           return self.__handle_error('Seems you not pass sms text')
+            return self.__handle_error('Seems you not pass sms text')
 
         data_to_send = {
             'sender': sender_name,
@@ -981,7 +981,7 @@ class PySendPulse:
 
         return self.__handle_result(self.__send_request('sms/campaigns', 'POST', data_to_send))
 
-    def sms_send(self, sender_name, phones, body, date = None, transliterate = False):
+    def sms_send(self, sender_name, phones, body, date=None, transliterate=False):
         """ Send sms by some phones
 
         @param sender_name: string senders name
@@ -994,11 +994,11 @@ class PySendPulse:
 
         logging.info("Function call: sms_send")
         if not sender_name:
-           return self.__handle_error('Seems you not pass sender name')
+            return self.__handle_error('Seems you not pass sender name')
         if not phones:
-           return self.__handle_error("Empty phones")
+            return self.__handle_error("Empty phones")
         if not body:
-           return self.__handle_error('Seems you not pass sms text')
+            return self.__handle_error('Seems you not pass sms text')
 
         try:
             phones = json.dumps(phones)
@@ -1038,7 +1038,7 @@ class PySendPulse:
         @return: dictionary with response message
         """
         if not id:
-           return self.__handle_error("Empty campaign id")
+            return self.__handle_error("Empty campaign id")
 
         logging.info("Function call: sms_get_campaign_info from: {}".format(id, ))
         return self.__handle_result(self.__send_request('/sms/campaigns/info/{}'.format(id, )))
@@ -1050,23 +1050,23 @@ class PySendPulse:
         @return: dictionary with response message
         """
         if not id:
-           return self.__handle_error("Empty campaign id")
+            return self.__handle_error("Empty campaign id")
 
         logging.info("Function call: sms_cancel_campaign : '{}'".format(id, ))
         return self.__handle_result(self.__send_request('sms/campaigns/cancel/{}'.format(id, ), 'PUT'))
 
-    def sms_get_campaign_cost(self, sender, body, addressbook_id = None, phones = None):
+    def sms_get_campaign_cost(self, sender, body, addressbook_id=None, phones=None):
         """ Get cost sms campaign
 
         @param id: unsigned int campaign ID
         @return: dictionary with response message
         """
         if not sender:
-           return self.__handle_error("Empty sender")
+            return self.__handle_error("Empty sender")
         if not body:
-           return self.__handle_error("Empty sms body")
+            return self.__handle_error("Empty sms body")
         if not addressbook_id and not phones:
-           return self.__handle_error("Empty addressbook id or phones")
+            return self.__handle_error("Empty addressbook id or phones")
 
         data_to_send = {
             'sender': sender,
