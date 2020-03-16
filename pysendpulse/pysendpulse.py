@@ -671,7 +671,7 @@ class PySendPulse:
         @return: dictionary with response message
         """
         logging.info("Function call: smtp_send_mail")
-        if not email.get('html') or not email.get('text'):
+        if (not email.get('html') or not email.get('text')) and not email.get('template'):
             return self.__handle_error('Seems we have empty body')
         elif not email.get('subject'):
             return self.__handle_error('Seems we have empty subject')
@@ -686,7 +686,7 @@ class PySendPulse:
         @param email: string valid email address. We will send an email message to the specified email address with a verification link.
         @return: dictionary with response message
         """
-        logging.info("Function call: smtp_send_mail_template")
+        logging.info("Function call: smtp_send_mail_with_template")
         if not email.get('template'):
             return self.__handle_error('Seems we have empty template')
         elif not email.get('template').get('id'):
