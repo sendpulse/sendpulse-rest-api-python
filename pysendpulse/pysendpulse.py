@@ -870,7 +870,7 @@ class PySendPulse:
 
         @return: dictionary with response message
         """
-        if not addressbook_id or not phones or variables:
+        if not addressbook_id or not phones or not variables:
             return self.__handle_error("Empty addressbook id or phones or variables")
         try:
             phones = json.dumps(phones)
