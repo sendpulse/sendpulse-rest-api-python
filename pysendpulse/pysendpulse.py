@@ -45,7 +45,7 @@ class PySendPulse:
     MEMCACHED_VALUE_TIMEOUT = 3600
     ALLOWED_STORAGE_TYPES = ['FILE', 'MEMCACHED']
 
-    def __init__(self, user_id, secret, storage_type="FILE"):
+    def __init__(self, user_id, secret, storage_type="FILE", token_file_path=""):
         """ SendPulse API constructor
 
         @param user_id: string REST API ID from SendPulse settings
@@ -60,6 +60,7 @@ class PySendPulse:
         self.__user_id = user_id
         self.__secret = secret
         self.__storage_type = storage_type.upper()
+        self.__token_file_path = token_file_path
         m = md5()
         m.update("{}::{}".format(user_id, secret).encode('utf-8'))
         self.__token_hash_name = m.hexdigest()
