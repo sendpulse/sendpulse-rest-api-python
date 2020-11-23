@@ -108,6 +108,9 @@ class PySendPulse:
         else:
             filepath = "{}{}".format(self.__token_file_path, self.__token_hash_name)
             try:
+                if not os.path.isdir(self.__token_file_path):
+                    os.makedirs(self.__token_file_path, exist_ok=True)
+
                 with open(filepath, 'w') as f:
                     f.write(self.__token)
                     logger.debug("Set token '{}' into 'FILE' '{}'".format(self.__token, filepath))
