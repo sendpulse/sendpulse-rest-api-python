@@ -52,6 +52,7 @@ class PySendPulse:
         @param user_id: string REST API ID from SendPulse settings
         @param secret: string REST API Secret from SendPulse settings
         @param storage_type: string FILE|MEMCACHED
+        @param memcached_host: string Host for Memcached server, default is 127.0.0.1:11211
         @raise: Exception empty credentials or get token failed
         """
         logger.info("Initialization SendPulse REST API Class")
