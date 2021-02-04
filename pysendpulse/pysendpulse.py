@@ -46,7 +46,7 @@ class PySendPulse:
     MEMCACHED_VALUE_TIMEOUT = 3600
     ALLOWED_STORAGE_TYPES = ['FILE', 'MEMCACHED']
 
-    def __init__(self, user_id, secret, storage_type="FILE", memcached_host="127.0.0.1:11211"):
+    def __init__(self, user_id, secret, storage_type="FILE", token_file_path="", memcached_host="127.0.0.1:11211"):
         """ SendPulse API constructor
 
         @param user_id: string REST API ID from SendPulse settings
@@ -62,6 +62,7 @@ class PySendPulse:
         self.__user_id = user_id
         self.__secret = secret
         self.__storage_type = storage_type.upper()
+        self.__token_file_path = token_file_path
         self.__memcached_host = memcached_host
         m = md5()
         m.update("{}::{}".format(user_id, secret).encode('utf-8'))
@@ -110,6 +111,9 @@ class PySendPulse:
         else:
             filepath = "{}{}".format(self.__token_file_path, self.__token_hash_name)
             try:
+                if not os.path.isdir(self.__token_file_path):
+                    os.makedirs(self.__token_file_path, exist_ok=True)
+
                 with open(filepath, 'w') as f:
                     f.write(self.__token)
                     logger.debug("Set token '{}' into 'FILE' '{}'".format(self.__token, filepath))
