@@ -41,16 +41,18 @@ class PySendPulse:
     __token_hash_name = None
     __storage_type = "FILE"
     __refresh_token = 0
+    __memcached_host = "127.0.0.1:11211"
 
     MEMCACHED_VALUE_TIMEOUT = 3600
     ALLOWED_STORAGE_TYPES = ['FILE', 'MEMCACHED']
 
-    def __init__(self, user_id, secret, storage_type="FILE", token_file_path=""):
+    def __init__(self, user_id, secret, storage_type="FILE", token_file_path="", memcached_host="127.0.0.1:11211"):
         """ SendPulse API constructor
 
         @param user_id: string REST API ID from SendPulse settings
         @param secret: string REST API Secret from SendPulse settings
         @param storage_type: string FILE|MEMCACHED
+        @param memcached_host: string Host for Memcached server, default is 127.0.0.1:11211
         @raise: Exception empty credentials or get token failed
         """
         logger.info("Initialization SendPulse REST API Class")
@@ -61,6 +63,7 @@ class PySendPulse:
         self.__secret = secret
         self.__storage_type = storage_type.upper()
         self.__token_file_path = token_file_path
+        self.__memcached_host = memcached_host
         m = md5()
         m.update("{}::{}".format(user_id, secret).encode('utf-8'))
         self.__token_hash_name = m.hexdigest()
@@ -70,7 +73,7 @@ class PySendPulse:
             self.__storage_type = 'FILE'
         logger.debug("Try to get security token from '{}'".format(self.__storage_type, ))
         if self.__storage_type == "MEMCACHED":
-            mc = memcache.Client(['127.0.0.1:11211'])
+            mc = memcache.Client([self.__memcached_host])
             self.__token = mc.get(self.__token_hash_name)
         else:  # file
             filepath = "{}{}".format(self.__token_file_path, self.__token_hash_name)
@@ -103,7 +106,7 @@ class PySendPulse:
         logger.debug("Got: '{}'".format(self.__token, ))
         if self.__storage_type == "MEMCACHED":
             logger.debug("Try to set token '{}' into 'MEMCACHED'".format(self.__token, ))
-            mc = memcache.Client(['127.0.0.1:11211'])
+            mc = memcache.Client([self.__memcached_host])
             mc.set(self.__token_hash_name, self.__token, self.MEMCACHED_VALUE_TIMEOUT)
         else:
             filepath = "{}{}".format(self.__token_file_path, self.__token_hash_name)
@@ -164,7 +167,6 @@ class PySendPulse:
                 logger.debug("Request response: {}".format(response.json(), ))
             except:
                 logger.critical("Raw server response: {}".format(response.text, ))
-                return response.status_code
         return response
 
     def __handle_result(self, data):

@@ -13,7 +13,8 @@ if __name__ == "__main__":
     REST_API_ID = ''
     REST_API_SECRET = ''
     TOKEN_STORAGE = 'memcached'
-    SPApiProxy = PySendPulse(REST_API_ID, REST_API_SECRET, TOKEN_STORAGE)
+    MEMCACHED_HOST = '127.0.0.1:11211'
+    SPApiProxy = PySendPulse(REST_API_ID, REST_API_SECRET, TOKEN_STORAGE, memcached_host=MEMCACHED_HOST)
 
     # Get list of tasks
     SPApiProxy.push_get_tasks()
