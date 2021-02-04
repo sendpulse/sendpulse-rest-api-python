@@ -160,7 +160,6 @@ class PySendPulse:
                 logger.debug("Request response: {}".format(response.json(), ))
             except:
                 logger.critical("Raw server response: {}".format(response.text, ))
-                return response.status_code
         return response
 
     def __handle_result(self, data):
