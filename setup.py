@@ -6,7 +6,7 @@ from pysendpulse import (
     __version__
 )
 
-install_requires = ['python3-memcached', ]
+install_requires = ['python3-memcached', 'requests']
 
 if version_info.major == 2:
     install_requires = ['python-memcached', 'requests', 'simplejson']
