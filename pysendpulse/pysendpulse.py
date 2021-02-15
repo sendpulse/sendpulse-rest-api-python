@@ -82,7 +82,7 @@ class PySendPulse:
                     self.__token = f.readline()
 
             else:
-                logger.error("Can't find file '{}' to read security token.".format(filepath))
+                logger.warning("Can't find file '{}' to read security token.".format(filepath))
         logger.debug("Got: '{}'".format(self.__token, ))
         if not self.__token and not self.__get_token():
             raise Exception("Could not connect to API. Please, check your ID and SECRET")
@@ -177,7 +177,7 @@ class PySendPulse:
         """
         if 'status_code' not in data:
             if data.status_code == 200:
-                logger.debug("Hanle result: {}".format(data.json(), ))
+                logger.debug("Handle result: {}".format(data.json(), ))
                 return data.json()
             elif data.status_code == 404:
                 response = {
@@ -202,7 +202,7 @@ class PySendPulse:
                 'is_error': True,
                 'http_code': data
             }
-        logger.debug("Hanle result: {}".format(response, ))
+        logger.debug("Handle result: {}".format(response, ))
         return {'data': response}
 
     def __handle_error(self, custom_message=None):
@@ -214,7 +214,7 @@ class PySendPulse:
         message = {'is_error': True}
         if custom_message is not None:
             message['message'] = custom_message
-        logger.error("Hanle error: {}".format(message, ))
+        logger.error("Handle error: {}".format(message, ))
         return message
 
     # ------------------------------------------------------------------ #
