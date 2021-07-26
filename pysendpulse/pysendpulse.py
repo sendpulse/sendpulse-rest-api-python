@@ -1004,7 +1004,7 @@ class PySendPulse:
 
         return self.__handle_result(self.__send_request('sms/campaigns', 'POST', data_to_send))
 
-    def sms_send(self, sender_name, phones, body, date=None, transliterate=False):
+    def sms_send(self, sender_name, phones, body, date=None, transliterate=False, country="UA", route="international"):
         """ Send sms by some phones
 
         @param sender_name: string senders name
@@ -1035,6 +1035,9 @@ class PySendPulse:
             'body': body,
             'date': date,
             'transliterate': transliterate,
+            "route":{
+                country: route
+            }
         }
 
         return self.__handle_result(self.__send_request('sms/send', 'POST', data_to_send))
