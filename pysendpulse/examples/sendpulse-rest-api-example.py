@@ -243,3 +243,14 @@ if __name__ == "__main__":
 
     # Remove sms campaign
     SPApiProxy.sms_delete_campaign(CAMPAIGN_ID)
+
+    # ****************  EVENT ***************
+
+    # Start event
+    params = {
+        "email": "test1@test1.com",
+        "phone": "+123456789",
+        "var_1": "var_1_value"
+        }
+
+    SPApiProxy.send_event('registration', params);

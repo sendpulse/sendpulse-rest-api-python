@@ -1120,3 +1120,23 @@ class PySendPulse:
 
         logger.info("Function call: sms_delete_campaign")
         return self.__handle_result(self.__send_request('sms/campaigns', 'DELETE', data_to_send))
+
+    # ------------------------------------------------------------------ #
+    #                           EVENTS                                   #
+    # ------------------------------------------------------------------ #
+
+    def send_event(self, event_name, body):
+        """ Send event by slug
+
+        @param event_name: string event name
+        @param body: array body {'email': 'test@test.com', 'phone': '+123456789': 'var_1':'var_1_value'}
+        @return: dictionary with response message
+        """
+
+        logger.info("Function call: send_event")
+        if not event_name:
+            return self.__handle_error('Seems you not pass event slug')
+        if not body:
+            return self.__handle_error('Seems you not pass body')
+
+        return self.__handle_result(self.__send_request('/events/name/{}'.format(event_name, ), 'POST', body))
