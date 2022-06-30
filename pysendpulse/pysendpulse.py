@@ -12,6 +12,7 @@ import requests
 import logging
 import base64
 from hashlib import md5
+from deprecated import deprecated
 
 try:
     import simplejson as json
@@ -975,9 +976,11 @@ class PySendPulse:
         logger.info("Function call: sms_add_phones_to_blacklist")
         return self.__handle_result(self.__send_request('sms/black_list', 'DELETE', data_to_send))
 
+    @deprecated(version='0.1.4', reason="You should use sms_add_campaign_by_addressbook_id")
     def sms_add_campaign(self, sender_name, addressbook_id, body, date=None, transliterate=False):
         """ Create new sms campaign
 
+        @deprecated: use method sms_delete_phonesfrom_blacklist
         @param sender_name: string senders name
         @param addressbook_id: unsigned int addressbook ID
         @param body: string campaign body
@@ -1004,6 +1007,7 @@ class PySendPulse:
 
         return self.__handle_result(self.__send_request('sms/campaigns', 'POST', data_to_send))
 
+    @deprecated(version='0.1.4', reason="You should use sms_add_campaign_by_phones")
     def sms_send(self, sender_name, phones, body, date=None, transliterate=False):
         """ Send sms by some phones
 
@@ -1036,6 +1040,70 @@ class PySendPulse:
             'date': date,
             'transliterate': transliterate,
         }
+
+        return self.__handle_result(self.__send_request('sms/send', 'POST', data_to_send))
+
+    def sms_add_campaign_by_addressbook_id(self, sender_name, addressbook_id, body, additional_params={}):
+        """ Create new sms campaign by addressbook_id
+
+        @param sender_name: string senders name
+        @param addressbook_id: unsigned int addressbook ID
+        @param body: string campaign body
+        @param additional_params: dictionary additional params for sms task
+        @return: dictionary with response message
+        """
+
+        logger.info("Function call: sms_add_campaign_by_addressbook_id")
+        if not sender_name:
+            return self.__handle_error('Seems you not pass sender name')
+        if not addressbook_id:
+            return self.__handle_error('Seems you not pass addressbook ID')
+        if not body:
+            return self.__handle_error('Seems you not pass sms text')
+
+        data_to_send = {
+            'sender': sender_name,
+            'addressBookId': addressbook_id,
+            'body': body
+        }
+
+        if additional_params:
+            data_to_send.update(additional_params)
+
+        return self.__handle_result(self.__send_request('sms/campaigns', 'POST', data_to_send))
+
+    def sms_add_campaign_by_phones(self, sender_name, phones, body, additional_params={}):
+        """ Create new sms campaign by some phones
+
+        @param sender_name: string senders name
+        @param phones: array phones
+        @param body: string campaign body
+        @param additional_params: dictionary additional params for sms task
+        @return: dictionary with response message
+        """
+
+        logger.info("Function call: sms_add_campaign_by_phones")
+        if not sender_name:
+            return self.__handle_error('Seems you not pass sender name')
+        if not phones:
+            return self.__handle_error('Seems you not pass phones')
+        if not body:
+            return self.__handle_error('Seems you not pass sms text')
+
+        try:
+            phones = json.dumps(phones)
+        except:
+            logger.debug("Phones: {}".format(phones))
+            return self.__handle_error("Phones list can't be converted by JSON library")
+
+        data_to_send = {
+            'sender': sender_name,
+            'phones': phones,
+            'body': body,
+        }
+
+        if additional_params:
+            data_to_send.update(additional_params)
 
         return self.__handle_result(self.__send_request('sms/send', 'POST', data_to_send))
 

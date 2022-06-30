@@ -217,14 +217,14 @@ if __name__ == "__main__":
     ]
     SPApiProxy.sms_get_phones_info_from_blacklist(phones)
 
-    # Create new sms campaign
-    SPApiProxy.sms_add_campaign(SENDER_NAME, ADDRESSBOOK_ID, 'test')
+    # Create new sms campaign by addressbook_id
+    SPApiProxy.sms_add_campaign_by_addressbook_id(SENDER_NAME, ADDRESSBOOK_ID, 'test')
 
-    # Send sms by some phones
+    # Create new sms campaign by some phones
     phones_for_send = [
         '11111111111'
     ]
-    SPApiProxy.sms_send(SENDER_NAME, phones_for_send, 'test')
+    SPApiProxy.sms_add_campaign_by_phones(SENDER_NAME, phones_for_send, 'test')
 
     # Get list of sms campaigns
     date_from = '2018-04-10 23:00:00'
