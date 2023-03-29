@@ -83,7 +83,7 @@ class PySendPulse:
                     self.__token = f.readline()
 
             else:
-                logger.error("Can't find file '{}' to read security token.".format(filepath))
+                logger.warning("Can't find file '{}' to read security token.".format(filepath))
         logger.debug("Got: '{}'".format(self.__token, ))
         if not self.__token and not self.__get_token():
             raise Exception("Could not connect to API. Please, check your ID and SECRET")
@@ -172,7 +172,7 @@ class PySendPulse:
 
     def __handle_result(self, data):
         """ Process request results
-
+        
         @param data:
         @return: dictionary with response message and/or http code
         """
@@ -205,7 +205,7 @@ class PySendPulse:
             }
         logger.debug("Hanle result: {}".format(response, ))
         return {'data': response}
-
+        
     def __handle_error(self, custom_message=None):
         """ Process request errors
 
@@ -215,7 +215,7 @@ class PySendPulse:
         message = {'is_error': True}
         if custom_message is not None:
             message['message'] = custom_message
-        logger.error("Hanle error: {}".format(message, ))
+        logger.error("Handle error: {}".format(message, ))
         return message
 
     # ------------------------------------------------------------------ #
@@ -681,8 +681,8 @@ class PySendPulse:
         @return: dictionary with response message
         """
         logger.info("Function call: smtp_send_mail")
-        if (not email.get('html') or not email.get('text')) and not email.get('template'):
-            return self.__handle_error('Seems we have empty body')
+        if not email.get('template') and not email.get('html') and not email.get('text'):
+            return self.__handle_error('Missing email body - specify a template, html or text content')
         elif not email.get('subject'):
             return self.__handle_error('Seems we have empty subject')
         elif not email.get('from') or not email.get('to'):
