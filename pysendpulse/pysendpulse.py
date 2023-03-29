@@ -172,40 +172,42 @@ class PySendPulse:
 
     def __handle_result(self, data):
         """ Process request results
-        
-        @param data:
+
+        @param data: a Response object from the Python Requests package
         @return: dictionary with response message and/or http code
         """
-        if 'status_code' not in data:
-            if data.status_code == 200:
-                logger.debug("Hanle result: {}".format(data.json(), ))
-                return data.json()
-            elif data.status_code == 404:
-                response = {
-                    'is_error': True,
-                    'http_code': data.status_code,
-                    'message': "Sorry, the page you are looking for {} could not be found.".format(data.url, )
-                }
-            elif data.status_code == 500:
-                response = {
-                    'is_error': True,
-                    'http_code': data.status_code,
-                    'message': "Whoops, looks like something went wrong on the server. Please contact with out support tech@sendpulse.com."
-                }
-            else:
-                response = {
-                    'is_error': True,
-                    'http_code': data.status_code
-                }
-                response.update(data.json())
-        else:
-            response = {
+        try:
+            result = data.json()
+        except:
+            result = {
                 'is_error': True,
-                'http_code': data
+                'http_code': data.status_code,
+                'message': "Response is empty, invalid or not JSON."
             }
-        logger.debug("Hanle result: {}".format(response, ))
-        return {'data': response}
-        
+
+        if data.ok:
+            errors = {
+                'is_error': False,
+                'http_code': data.status_code
+            }
+            logger.debug("Handle result: {}".format(result, ))
+        else:
+            errors = {
+                'is_error': True,
+                'http_code': data.status_code
+            }
+            if data.status_code == 404:
+                errors['message'] = "Sorry, the page you are looking for {} could not be found.".format(data.url, )
+            elif data.status_code == 500:
+                errors['message'] = "Whoops, looks like something went wrong on the server. Please contact with out support tech@sendpulse.com."
+
+        logger.debug("Handle result: {}".format(errors, ))
+
+        # return object that maintains backward-compatibility
+        result.update(errors)
+        result.update({'data': result.copy()})
+        return result
+
     def __handle_error(self, custom_message=None):
         """ Process request errors
 
