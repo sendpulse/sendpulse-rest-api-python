@@ -1210,3 +1210,29 @@ class PySendPulse:
             return self.__handle_error('Seems you not pass body')
 
         return self.__handle_result(self.__send_request('/events/name/{}'.format(event_name, ), 'POST', body))
+
+    # ------------------------------------------------------------------ #
+    #                           WHATSAPP                                 #
+    # ------------------------------------------------------------------ #
+    
+    def get_bots(self):
+        """ Get_bots
+        
+        @return: dictionary with response message
+        """
+        return self.__handle_result(self.__send_request('whatsapp/bots', 'GET'))
+    
+    def get_templates(self, bot_id):
+        """ Get_templates
+        
+        @param bot_id: string bot_id
+        @return: dictionary with response message
+        """
+        
+        if not bot_id:
+            return self.__handle_error('Seems you not pass bot_id')
+            
+        return self.__handle_result(self.__send_request('whatsapp/templates?bot_id={}'.format(bot_id), 'GET'))
+    
+    
+        
