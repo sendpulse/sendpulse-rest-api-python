@@ -143,9 +143,9 @@ class PySendPulse:
             headers = {'Authorization': 'Bearer {}'.format(self.__token)}
         else:
             headers = {}
-        if use_json_content_type and params:
-            headers['Content-Type'] = 'application/json'
-            params = json.dumps(params)
+        # if use_json_content_type and params:
+        headers['Content-Type'] = 'application/json'
+        params = json.dumps(params)
 
         if method == "POST":
             response = requests.post(url, headers=headers, data=params)
@@ -178,18 +178,16 @@ class PySendPulse:
         """
         try:
             result = data.json()
+            errors = {}
         except:
-            result = {
+            result = {}
+            errors = {
                 'is_error': True,
                 'http_code': data.status_code,
                 'message': "Response is empty, invalid or not JSON."
             }
 
         if data.ok:
-            errors = {
-                'is_error': False,
-                'http_code': data.status_code
-            }
             logger.debug("Handle result: {}".format(result, ))
         else:
             errors = {
@@ -201,11 +199,11 @@ class PySendPulse:
             elif data.status_code == 500:
                 errors['message'] = "Whoops, looks like something went wrong on the server. Please contact with out support tech@sendpulse.com."
 
-        logger.debug("Handle result: {}".format(errors, ))
+            logger.debug("Handle result: {}".format(errors, ))
 
         # return object that maintains backward-compatibility
-        result.update(errors)
-        result.update({'data': result.copy()})
+        if not data.ok:
+            result = {'data': errors}
         return result
 
     def __handle_error(self, custom_message=None):
