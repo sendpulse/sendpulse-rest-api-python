@@ -43,11 +43,12 @@ class PySendPulse:
     __storage_type = "FILE"
     __refresh_token = 0
     __memcached_host = "127.0.0.1:11211"
+    __proxies = None
 
     MEMCACHED_VALUE_TIMEOUT = 3600
     ALLOWED_STORAGE_TYPES = ['FILE', 'MEMCACHED']
 
-    def __init__(self, user_id, secret, storage_type="FILE", token_file_path="", memcached_host="127.0.0.1:11211"):
+    def __init__(self, user_id, secret, storage_type="FILE", token_file_path="", memcached_host="127.0.0.1:11211", proxies=None):
         """ SendPulse API constructor
 
         @param user_id: string REST API ID from SendPulse settings
@@ -65,6 +66,7 @@ class PySendPulse:
         self.__storage_type = storage_type.upper()
         self.__token_file_path = token_file_path
         self.__memcached_host = memcached_host
+        self.__proxies = proxies
         m = md5()
         m.update("{}::{}".format(user_id, secret).encode('utf-8'))
         self.__token_hash_name = m.hexdigest()
@@ -148,13 +150,13 @@ class PySendPulse:
         params = json.dumps(params)
 
         if method == "POST":
-            response = requests.post(url, headers=headers, data=params)
+            response = requests.post(url, headers=headers, data=params, proxies=self.__proxies)
         elif method == "PUT":
-            response = requests.put(url, headers=headers, data=params)
+            response = requests.put(url, headers=headers, data=params, proxies=self.__proxies)
         elif method == "DELETE":
-            response = requests.delete(url, headers=headers, data=params)
+            response = requests.delete(url, headers=headers, data=params, proxies=self.__proxies)
         else:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url, headers=headers, params=params, proxies=self.__proxies)
         if response.status_code == 401 and self.__refresh_token == 0:
             self.__get_token()
             return self.__send_request(path, method, params)
