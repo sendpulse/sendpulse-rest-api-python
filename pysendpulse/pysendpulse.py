@@ -450,7 +450,7 @@ class PySendPulse:
             'sender_name': from_name,
             'sender_email': from_email,
             'subject': subject,
-            'body': base64.b64encode(body),
+            'body': base64.b64encode(body.encode('utf-8')).decode('utf-8'),
             'list_id': addressbook_id,
             'name': campaign_name,
             'attachments': json.dumps(attachments)
