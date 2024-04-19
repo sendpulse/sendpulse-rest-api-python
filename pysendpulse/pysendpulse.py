@@ -688,7 +688,7 @@ class PySendPulse:
         elif not email.get('from') or not email.get('to'):
             return self.__handle_error("Seems we have empty some credentials 'from': '{}' or 'to': '{}' fields".format(email.get('from'), email.get('to')))
         email['html'] = base64.b64encode(email.get('html').encode('utf-8')).decode('utf-8') if email['html'] else None
-        return self.__handle_result(self.__send_request('smtp/emails', 'POST', {'email': json.dumps(email)}))
+        return self.__handle_result(self.__send_request('smtp/emails', 'POST', {'email': email}))
 
     def smtp_send_mail_with_template(self, email):
         """ SMTP: send email with custom template
