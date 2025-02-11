@@ -157,7 +157,7 @@ class PySendPulse:
             response = requests.get(url, headers=headers, params=params)
         if response.status_code == 401 and self.__refresh_token == 0:
             self.__get_token()
-            return self.__send_request(path, method, params)
+            return self.__send_request(path, method, json.loads(params), use_token)
         elif response.status_code == 404:
             logger.warning("404: Sorry, the page you are looking for could not be found.")
             logger.debug("Raw_server_response: {}".format(response.text, ))
