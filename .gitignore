@@ -1,31 +1,37 @@
-*~
-env/
-venv/
-
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
+*.pyo
+*.pyd
 *.so
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-
-# sqlite3
-*.sqlite3
-
-# sockets and pid
-*.sock
-*.pid
-/*.gitkeep
-*.save
-*.retry
-
+*.egg
+*.egg-info/
 dist/
-*.egg-info
+build/
+wheels/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Type checking
+.mypy_cache/
+
+# Linter
+.ruff_cache/
+
+# Tests
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# macOS
+.DS_Store
+
