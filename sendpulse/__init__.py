@@ -1,4 +1,4 @@
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 __author__ = "SendPulse"
 __author_email__ = "tech@sendpulse.com"
 __copyright__ = "Copyright 2015, SendPulse"

@@ -12,9 +12,11 @@ class HttpxClient:
         self,
         connect_timeout: float = 10.0,
         request_timeout: float = 30.0,
+        proxy: str | None = None,
     ) -> None:
         self._client = httpx.Client(
             timeout=httpx.Timeout(request_timeout, connect=connect_timeout),
+            proxy=proxy,
             verify=True,
             follow_redirects=False,
         )

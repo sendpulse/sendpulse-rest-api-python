@@ -142,6 +142,34 @@ def test_oauth_retries_on_401() -> None:
     assert http.call_count() == 4  # token + original + token refresh + retry
 
 
+def test_oauth_retry_preserves_request_body() -> None:
+    # Regression for the legacy bug where the body was reset on the 401 retry.
+    http = FakeHttpClient()
+
+    def _token(t: str) -> Response:
+        return Response(200, {}, json.dumps(
+            {"access_token": t, "token_type": "Bearer", "expires_in": 3600}
+        ))
+
+    http.queue(
+        _token("tok1"),
+        Response(401, {}, "Unauthorized"),
+        _token("tok2"),
+        _ok({"ok": True}),
+    )
+    client = Client(
+        client_id="id", client_secret="secret",
+        http_client=http, token_storage=InMemoryTokenStorage(),
+    )
+
+    body = json.dumps({"foo": "bar"})
+    client.send(Request(method="POST", uri="/test", body=body))
+
+    # Both business attempts (original + retry) must carry the same non-empty body.
+    business = [r for r in http.all_requests() if r.body == body]
+    assert len(business) == 2
+
+
 def test_api_key_does_not_retry_on_401() -> None:
     http = FakeHttpClient()
     http.queue(Response(401, {}, "Unauthorized"))

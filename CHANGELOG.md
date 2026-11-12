@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## 2.0.1
+
+### Added
+- `HttpxClient` now accepts a `proxy` argument for use behind forward proxies /
+  firewalls: `Client(..., http_client=HttpxClient(proxy="http://proxy:8080"))`.
+
+### Fixed
+- Regression test covering body preservation on the 401 retry.
+
 ## 2.0.0
 
 Complete rewrite as a **thin client**. This is a breaking change.
