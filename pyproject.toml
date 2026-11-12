@@ -7,7 +7,7 @@ name = "pysendpulse"
 dynamic = ["version"]
 description = "Official Python SDK for the SendPulse REST API"
 readme = "README.md"
-license = { file = "LICENSE" }
+license = { file = "LICENSE.md" }
 requires-python = ">=3.11"
 keywords = ["sendpulse", "api", "rest", "sdk", "email", "sms", "crm", "chatbots"]
 classifiers = [
