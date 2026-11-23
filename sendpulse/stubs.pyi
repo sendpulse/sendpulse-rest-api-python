@@ -1,5 +1,5 @@
 # GENERATED IDE/type-checker stubs — not imported at runtime. Do not edit by hand.
-# Regenerate with generate_stubs.py. 793 operations.
+# Regenerate with generate_stubs.py. 803 operations.
 from __future__ import annotations
 
 from typing import Any
@@ -3360,41 +3360,6 @@ class _EmailTemplates:
         """
         ...
 
-class _EmailWebhooks:
-    def createWebhook(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
-        """POST /v2/email-service/webhook
-        """
-        ...
-
-    def deleteWebhook(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
-        """DELETE /v2/email-service/webhook/{id}
-
-        Params:
-          id: int [path] (required)
-        """
-        ...
-
-    def getWebhookById(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
-        """GET /v2/email-service/webhook/{id}
-
-        Params:
-          id: int [path] (required)
-        """
-        ...
-
-    def getWebhooks(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
-        """GET /v2/email-service/webhook
-        """
-        ...
-
-    def updateWebhook(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
-        """PUT /v2/email-service/webhook/{id}
-
-        Params:
-          id: int [path] (required)
-        """
-        ...
-
 class Email:
     balance: _EmailBalance
     blacklist: _EmailBlacklist
@@ -3404,7 +3369,6 @@ class Email:
     senders: _EmailSenders
     tags: _EmailTags
     templates: _EmailTemplates
-    webhooks: _EmailWebhooks
 
 class _FacebookAccount:
     def getAccount(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
@@ -5741,6 +5705,133 @@ class WebPush:
     configuration: _WebPushConfiguration
     subscribers: _WebPushSubscribers
     websites: _WebPushWebsites
+
+class _WebhookActions:
+    def getActionEvents(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
+        """GET /actions/events
+        """
+        ...
+
+    def getActions(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
+        """GET /actions
+
+        Params:
+          scope: string [query]
+          event: string [query]
+          order: string [query]
+          order_by: string [query]
+        """
+        ...
+
+    def getPaymentOrderStatuses(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
+        """GET /actions/payment-order-statuses
+        """
+        ...
+
+class _WebhookWebhooks:
+    def addWebhookEvent(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}/events/{action}
+
+        Params:
+          webhook: string [path] (required)
+          action: string [path] (required)
+        """
+        ...
+
+    def createWebhook(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
+        """POST /webhooks
+        """
+        ...
+
+    def deleteWebhook(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """DELETE /webhooks/{webhook}
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def getWebhookById(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """GET /webhooks/{webhook}
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def getWebhookLogs(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """GET /webhooks/{webhook}/logs
+
+        Params:
+          limit: int [query]
+          cursor: string [query]
+          webhook: string [path] (required)
+        """
+        ...
+
+    def getWebhooks(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:
+        """GET /webhooks
+
+        Params:
+          status: int [query]
+          search: string [query]
+          order: string [query]
+          order_by: string [query]
+        """
+        ...
+
+    def regenerateWebhookSecret(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}/secret
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def removeWebhookEvent(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """DELETE /webhooks/{webhook}/events/{action}
+
+        Params:
+          webhook: string [path] (required)
+          action: string [path] (required)
+        """
+        ...
+
+    def retryWebhookDelivery(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}/logs/retry
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def testWebhook(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}/test
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def updateWebhook(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+    def updateWebhookStatus(self, params: dict[str, Any]) -> dict[str, Any] | list[Any]:
+        """POST /webhooks/{webhook}/status
+
+        Params:
+          webhook: string [path] (required)
+        """
+        ...
+
+class Webhook:
+    actions: _WebhookActions
+    webhooks: _WebhookWebhooks
 
 class _WhatsappAccount:
     def getAccount(self, params: dict[str, Any] | None = ...) -> dict[str, Any] | list[Any]:

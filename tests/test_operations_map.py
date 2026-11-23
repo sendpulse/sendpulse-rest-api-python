@@ -15,8 +15,8 @@ OPERATIONS = load_operations()
 
 
 def test_expected_total_count() -> None:
-    # Tracks the current spec snapshot across all 19 services.
-    assert len(OPERATIONS) == 793
+    # Tracks the current spec snapshot across all 20 services.
+    assert len(OPERATIONS) == 803
 
 
 def test_all_services_present() -> None:
@@ -24,7 +24,7 @@ def test_all_services_present() -> None:
     assert services == {
         "a360", "chatbot", "crm", "edu", "email", "facebook", "file-manager",
         "instagram", "live-chat", "popups", "sms", "smtp", "telegram", "tiktok",
-        "verifier", "viber", "viber-chatbot", "web-push", "whatsapp",
+        "verifier", "viber", "viber-chatbot", "web-push", "webhook", "whatsapp",
     }
 
 

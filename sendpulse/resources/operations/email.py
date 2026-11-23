@@ -1,6 +1,6 @@
 """Operation map fragment for "email" — GENERATED, do not edit by hand.
 
-Regenerate with the sdk-generator. 60 operations.
+Regenerate with the sdk-generator. 55 operations.
 """
 
 OPERATIONS = {
@@ -277,31 +277,6 @@ OPERATIONS = {
     'email.templates.updateTemplate': {
         'method': 'POST',
         'path': '/template/edit/{id}',
-        'params': {'id': 'int!'},
-    },
-    'email.webhooks.createWebhook': {
-        'method': 'POST',
-        'path': '/v2/email-service/webhook',
-        'params': {},
-    },
-    'email.webhooks.deleteWebhook': {
-        'method': 'DELETE',
-        'path': '/v2/email-service/webhook/{id}',
-        'params': {'id': 'int!'},
-    },
-    'email.webhooks.getWebhookById': {
-        'method': 'GET',
-        'path': '/v2/email-service/webhook/{id}',
-        'params': {'id': 'int!'},
-    },
-    'email.webhooks.getWebhooks': {
-        'method': 'GET',
-        'path': '/v2/email-service/webhook',
-        'params': {},
-    },
-    'email.webhooks.updateWebhook': {
-        'method': 'PUT',
-        'path': '/v2/email-service/webhook/{id}',
         'params': {'id': 'int!'},
     },
 }

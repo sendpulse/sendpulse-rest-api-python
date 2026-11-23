@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here.
 
+## 2.1.0
+
+### Added
+- **`webhook` service** — manage SendPulse webhooks:
+  `client.webhook.webhooks.getWebhooks()`, `getWebhookById({"webhook": ID})`,
+  `createWebhook({...})`, `updateWebhook`, `deleteWebhook`, plus `testWebhook`,
+  `getWebhookLogs`, `retryWebhookDelivery`, secret/status/event helpers.
+
+### Changed
+- Regenerated `a360` and `bulk-email` operation maps from the latest OpenAPI specs.
+
 ## 2.0.1
 
 ### Added
